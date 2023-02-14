@@ -70,7 +70,7 @@ include("conf.php");
             <div class="row">
                 <div class="col-lg-12">
                     <div class="login-title text-center mb-30">
-                        <h2>Login</h2>
+                        <h2>เข้าสู่ระบบ</h2>
                         <p>กรุณาเข้าสู่ระบบ เพื่อเข้าใช้งานระบบแอปพลิเคชันตรวจสอบคลังและสั่งจองรถจักรยานยนต์</p>
                     </div>
                 </div>

@@ -46,6 +46,8 @@ if(!empty($_GET['date']))
                                 <td width="25%">วัน/เวลา</td>
                                
                                 <td width="15%" class="text-center">จัดการ</td>
+                                <td style="display:none;"></td>
+
                             </tr>
                         </thead>
                         <tbody>
@@ -79,6 +81,7 @@ if(!empty($_GET['date']))
                                             <a onclick="how_del(6,<?=$rr['id']?>,'reload')" class="btn btn-danger btn-sm fwhite"><span
                                                     class="far fa-trash-alt  "></span> ลบ</a>
                                         </td>
+                                        <td style="display:none;"><?=$rr['date_time']?></td>
                                     </tr>
                                     <?php
                         
@@ -112,8 +115,7 @@ if(!empty($_GET['date']))
 language: {
         searchPlaceholder: "ชื่อ - นามสกุล"
     },
-    columnDefs: [ { type: 'date', 'targets': [2] } ],
-order: [[ 2, 'desc' ]]
+order: [[ 4, 'desc' ]]
 });
 $('.dataTables_filter input').unbind().on('keyup', function() {
 	var searchTerm = this.value.toLowerCase();

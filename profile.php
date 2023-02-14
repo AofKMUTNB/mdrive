@@ -112,6 +112,7 @@ while ($row=$sqli->fetch_assoc()) {
 
                         </div>
                         <div class="col-lg-12 mt-3 mb-3 text-center">
+                        <button type="submit" class="btn btn-success">บันทึก</button>
                             <input type="hidden" name="user_id" value="<?=$_GET['id']?>">
                             <?php
                             if($_SESSION['user-type']=="admin")
@@ -127,7 +128,7 @@ while ($row=$sqli->fetch_assoc()) {
      
                             }
                             ?>
-                           <button type="submit" class="btn btn-success">บันทึก</button>
+                           
 
                         </div>
                     </div>

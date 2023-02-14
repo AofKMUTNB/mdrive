@@ -398,7 +398,6 @@ switch ($act) {
     
     case 'show_chart':
                 $my_branch=$_POST['my_branch'];
-                $m_start=$_POST['m_start'];
                 $m_stop=$_POST['m_stop'];
                 $year=$_POST['year'];
                 $brand=$_POST['brand'];
@@ -427,6 +426,197 @@ switch ($act) {
         echo json_encode($data); 
 
     break;
+    case 'show_chart2':
+                $my_branch=$_POST['my_branch'];
+                $year=$_POST['year'];
+                $brand=$_POST['brand'];
+                $code_id=$_POST['code_id'];
+                $color=$_POST['color'];
+                $year=$year-543;
+        $data = array();
+        if($brand=="all")
+        {
+            $txtbrand="(a.brand='HONDA' or a.brand='YAMAHA' )";
+
+
+        }else{
+            $txtbrand="a.brand='$brand'";
+
+        }
+
+                if($code_id=="all")
+                {
+                    for ($i=1; $i <13 ; $i++) { 
+                        $result = $conn->query("SELECT sum(a.unit) as unit,b.name,c.color,MONTH(a.date_order)  as month FROM `tbl_order` a inner join tbl_motorcycle b on a.motor_id=b.id inner join tbl_motorcycle_color c on a.color_id=c.id where a.branch_order='$my_branch' and $txtbrand and a.status='success' and ( YEAR(a.date_order)='$year' and MONTH(a.date_order)='$i') group by MONTH(a.date_order) ");
+                         if($result->num_rows>0)
+                         {
+                            while ($row = $result->fetch_assoc()) {
+                                array_push($data,$row);
+                            }
+                         }else{
+                             $row=[
+                                "unit"=>0,
+                                "name"=>"",
+                                "color"=>"",
+                                "month"=>$i,
+                             ]; 
+                             array_push($data,$row);
+                         }
+                         
+                    }
+                  
+                }else{
+                    if($color=="all")
+                    {
+
+                        for ($i=1; $i <13 ; $i++) { 
+                            $result = $conn->query("SELECT sum(a.unit) as unit,b.name,c.color,MONTH(a.date_order)  as month FROM `tbl_order` a inner join tbl_motorcycle b on a.motor_id=b.id inner join tbl_motorcycle_color c on a.color_id=c.id where a.branch_order='$my_branch' and  $txtbrand and a.code='$code_id' and a.status='success' and (  YEAR(a.date_order)='$year' and MONTH(a.date_order)='$i') group by MONTH(a.date_order) ");
+                             if($result->num_rows>0)
+                             {
+                                while ($row = $result->fetch_assoc()) {
+                                    array_push($data,$row);
+                                }
+                             }else{
+                                 $row=[
+                                    "unit"=>0,
+                                    "name"=>"",
+                                    "color"=>"",
+                                    "month"=>$i,
+                                 ]; 
+                                 array_push($data,$row);
+                             }
+                             
+                        }
+                        
+                    }else{
+                        for ($i=1; $i <13 ; $i++) { 
+                            $result = $conn->query("SELECT sum(a.unit) as unit,b.name,c.color,MONTH(a.date_order)  as month FROM `tbl_order` a inner join tbl_motorcycle b on a.motor_id=b.id inner join tbl_motorcycle_color c on a.color_id=c.id where a.branch_order='$my_branch' and  $txtbrand and a.code='$code_id' and a.color_id='$color' and a.status='success' and (  YEAR(a.date_order)='$year'  and MONTH(a.date_order)='$i') group by MONTH(a.date_order) ");
+                            if($result->num_rows>0)
+                            {
+                               while ($row = $result->fetch_assoc()) {
+                                   array_push($data,$row);
+                               }
+                            }else{
+                                $row=[
+                                   "unit"=>0,
+                                   "name"=>"",
+                                   "color"=>"",
+                                   "month"=>$i,
+                                ]; 
+                                array_push($data,$row);
+                            }
+                            }
+
+                       
+                        
+                    }
+
+                }
+        
+
+        // foreach ($result as $row) {
+        //     $data[] = $row;
+        // }
+        echo json_encode($data); 
+
+    break;
+  
+  
+    case 'show_chart3':
+                $my_branch=$_POST['my_branch'];
+                $year=$_POST['year'];
+                $brand=$_POST['brand'];
+                $code_id=$_POST['code_id'];
+                $color=$_POST['color'];
+                $year=$year-543;
+                $data = array();
+                if($brand=="all")
+                {
+                    $txtbrand="(a.brand='HONDA' or a.brand='YAMAHA' )";
+        
+        
+                }else{
+                    $txtbrand="a.brand='$brand'";
+        
+                }
+
+
+                if($code_id=="all")
+                {
+                    for ($i=$year; $i >($year-6) ; $i--) { 
+                        $result = $conn->query("SELECT sum(a.unit) as unit,b.name,c.color,YEAR(a.date_order)  as year FROM `tbl_order` a inner join tbl_motorcycle b on a.motor_id=b.id inner join tbl_motorcycle_color c on a.color_id=c.id where a.branch_order='$my_branch' and $txtbrand and a.status='success' and ( YEAR(a.date_order)='$i'  ) group by YEAR(a.date_order) ");
+                         if($result->num_rows>0)
+                         {
+                            while ($row = $result->fetch_assoc()) {
+                                array_push($data,$row);
+                            }
+                         }else{
+                             $row=[
+                                "unit"=>0,
+                                "name"=>"",
+                                "color"=>"",
+                                "year"=>$i,
+                             ]; 
+                             array_push($data,$row);
+                         }
+                         
+                    }
+                  
+                }else{
+                    if($color=="all")
+                    {
+
+                        for ($i=$year; $i >($year-6) ; $i--) { 
+                            $result = $conn->query("SELECT sum(a.unit) as unit,b.name,c.color,YEAR(a.date_order)  as year FROM `tbl_order` a inner join tbl_motorcycle b on a.motor_id=b.id inner join tbl_motorcycle_color c on a.color_id=c.id where a.branch_order='$my_branch' and $txtbrand and a.code='$code_id' and a.status='success' and (  YEAR(a.date_order)='$i'  ) group by YEAR(a.date_order) ");
+                             if($result->num_rows>0)
+                             {
+                                while ($row = $result->fetch_assoc()) {
+                                    array_push($data,$row);
+                                }
+                             }else{
+                                 $row=[
+                                    "unit"=>0,
+                                    "name"=>"",
+                                    "color"=>"",
+                                    "year"=>$i,
+                                 ]; 
+                                 array_push($data,$row);
+                             }
+                             
+                        }
+                        
+                    }else{
+                        for ($i=$year; $i >($year-6) ; $i--) { 
+                            $result = $conn->query("SELECT sum(a.unit) as unit,b.name,c.color,YEAR(a.date_order)  as year FROM `tbl_order` a inner join tbl_motorcycle b on a.motor_id=b.id inner join tbl_motorcycle_color c on a.color_id=c.id where a.branch_order='$my_branch' and $txtbrand and a.code='$code_id' and a.color_id='$color' and a.status='success' and (  YEAR(a.date_order)='$i' ) group by YEAR(a.date_order) ");
+                            if($result->num_rows>0)
+                            {
+                               while ($row = $result->fetch_assoc()) {
+                                   array_push($data,$row);
+                               }
+                            }else{
+                                $row=[
+                                   "unit"=>0,
+                                   "name"=>"",
+                                   "color"=>"",
+                                   "year"=>$i,
+                                ]; 
+                                array_push($data,$row);
+                            }
+                            }
+
+                       
+                        
+                    }
+
+                }
+        
+
+        // foreach ($result as $row) {
+        //     $data[] = $row;
+        // }
+        echo json_encode($data); 
+
+    break;
     
 
 
@@ -436,6 +626,21 @@ switch ($act) {
                 $my_branch=$_SESSION['user-branch'];
                 $sqli=$conn->query("SELECT `id` FROM `tbl_order` WHERE `branch_delivery`='$my_branch' and (`status`='wait_confirm' or `status`='confirm')");
                 $arr['num_data']=$sqli->num_rows;
+
+
+        echo json_encode($arr);
+
+	break;
+    case 'load_code':
+        $arr = array();
+        $brand=$_POST['brand'];
+
+        $sqli = $conn->query("SELECT `code`,`name` FROM `motorcycle_center` where `brand`='$brand' group by `code`");
+
+        $arr['num_data']=$sqli->num_rows;
+        while ($row = $sqli->fetch_assoc()) {
+            array_push($arr,$row);
+        }
 
 
         echo json_encode($arr);

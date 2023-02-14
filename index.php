@@ -81,11 +81,11 @@ else{
 
                             if(empty($_GET['branch_id']) || $_GET['branch_id']=="all")
                             {
-                                $sqli = $conn->query("SELECT * FROM `tbl_employee` where id!='$myid'");
+                                $sqli = $conn->query("SELECT * FROM `tbl_employee` where id!='$myid' order by id desc");
 
                             }else{
                                 $branch_id=$_GET['branch_id'];
-                                $sqli = $conn->query("SELECT * FROM `tbl_employee` where id!='$myid' and branch='$branch_id'");
+                                $sqli = $conn->query("SELECT * FROM `tbl_employee` where id!='$myid' and branch='$branch_id' order by id desc");
 
                             }
                     if($sqli->num_rows>0)

@@ -42,7 +42,7 @@ if(empty($_SESSION['user-id'])){echo "<script>window.location='login.php'</scrip
                         </thead>
                         <tbody>
                             <?php
-                    $sqli = $conn->query("SELECT * FROM `tbl_zone`");
+                    $sqli = $conn->query("SELECT * FROM `tbl_zone` order by id desc");
                     if($sqli->num_rows>0)
                     { $i=1;
                         while ($row=$sqli->fetch_assoc()) {

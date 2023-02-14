@@ -1,9 +1,9 @@
 <?php
 session_start();
 $servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "mdrive"; 
+$username = "u935111432_mdrive";
+$password = "MLTl+gF59N~n";
+$dbname = "u935111432_mdrive"; 
 
 date_default_timezone_set("Asia/Bangkok");
 

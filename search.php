@@ -38,7 +38,7 @@ if($brand=="HONDA"){$chk1="selected";}else{$chk2="selected";}
             <div class="row">
                 <div class="col-lg-5 form-group">
                     <span>ยี่ห้อ</span>
-                    <select name="brand" id="brand" class="form-control">
+                    <select name="brand" id="brand" class="form-control" onchange="load_code()">
                         <option value="HONDA" <?=$chk1?>>HONDA</option>
                         <option value="YAMAHA" <?=$chk2?>>YAMAHA</option>
                     </select>
@@ -46,12 +46,13 @@ if($brand=="HONDA"){$chk1="selected";}else{$chk2="selected";}
                 <div class="col-lg-5 form-group">
                     <span>CODE เลขรหัสรุ่น</span>
                     <select class="js-example-basic-single form-control" name="code" id="code">
+                        <option value="">เลือก</option>
                         <?php
-                    $sqli = $conn->query("SELECT `code` FROM `motorcycle_center` group by `code`");
+                    $sqli = $conn->query("SELECT `code`,`name` FROM `motorcycle_center` where `brand`='HONDA' group by `code`");
                     while ($r=$sqli->fetch_assoc()) {
                         if($_GET['code']==$r['code']){$chk="selected";}else{$chk="";}
                         ?>
-                        <option value="<?=$r['code']?>" <?=$chk?>><?=$r['code']?></option>
+                        <option value="<?=$r['code']?>" <?=$chk?>><?=$r['code']?> (<?=$r['name']?>)</option>
 
                         <?php
                     }
@@ -224,6 +225,39 @@ if($brand=="HONDA"){$chk1="selected";}else{$chk2="selected";}
 
 
             }
+
+        }
+    });
+}
+    
+
+
+function load_code(){
+    $.ajax({
+        url: "sql.php",
+        type: "POST",
+        data: {
+            act: "load_code",
+            brand:$("#brand").val()
+        },
+        success: function(data) {
+            var obj=JSON.parse(data);
+            $("#code").html("");
+            $("#code").removeClass("js-example-basic-single");
+
+            var tbody="<option>เลือก</option>";
+            for (var i = 0; i < obj['num_data']; i++) {
+                if(i==0){
+                    tbody+='<option value="'+obj[i]['code']+'" selected>'+obj[i]['code']+' ('+obj[i]['name']+')</option>';
+
+                }else{
+                    tbody+='<option value="'+obj[i]['code']+'">'+obj[i]['code']+' ('+obj[i]['name']+')</option>';
+
+                }
+            }
+            $("#code").html(tbody);
+            $("#code").addClass("js-example-basic-single");
+            
 
         }
     });

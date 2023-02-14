@@ -58,8 +58,8 @@ if(empty($_GET['key']))
                 <a href="pdf/report_motorcycle.php?branch_id=<?=$branch_id?>&key=<?=$key?>" target="_blank"><button type="button"
                         class="btn btn-primary btn-sm mb-2"><span class="fa fa-file-pdf-o"></span> รายงานสินค้าคงคลัง
                         PDF</button></a>
-                <a download="รายงานสรุปจํานวนรถจักรยานยนต์ในคลัง[<?=date('d-m-Y')?>]" id="anchorNewApi-xls"
-                    onclick="return newApi('xls','รายงานสรุปจํานวนรถจักรยานยนต์ในคลัง[<?=date('d-m-Y')?>]');"><button
+                <a download="รายงานสรุปจํานวนรถจักรยานยนต์ในคลัง สาขา[ <?=$zone_name?> ] <?=$branch_name?> [<?=date('d-m-Y')?>]" id="anchorNewApi-xls"
+                    onclick="return newApi('xls','รายงานสรุปจํานวนรถจักรยานยนต์ในคลัง สาขา[ <?=$zone_name?> ] <?=$branch_name?> [<?=date('d-m-Y')?>]');"><button
                         type="button" class="btn btn-success btn-sm mb-2"><span class="fa fa-file-excel-o"></span>
                         รายงานสินค้าคงคลัง .xls</button></a>
             </div>

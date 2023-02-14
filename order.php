@@ -127,7 +127,7 @@ while ($row=$sqli->fetch_assoc()) {
                         ?>
                         <div class="col-12">
                             <span>หมายเหตุ</span>
-                            <textarea name="note" class="form-control" id="" cols="30" rows="5" placeholder="ไม่ระบุ"></textarea>
+                            <textarea name="note" class="form-control" id="" cols="30" rows="5" required placeholder="ไม่ระบุ"></textarea>
                         </div>
 
                         <div class="col-lg-12 mt-3 mb-3 text-center">
